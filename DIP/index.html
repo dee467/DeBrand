@@ -94,6 +94,36 @@
   .bar-track{height:10px; background:var(--off); margin-bottom:36px;}
   .bar-fill{height:100%; background:var(--orange);}
 
+  .launch{
+    border:2px solid var(--ink);
+    padding:20px 22px;
+    margin-bottom:20px;
+    background:var(--lime-light);
+  }
+  .launch-head{display:flex; align-items:baseline; gap:12px; margin-bottom:8px;}
+  .launch-tag{
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:1.5px;
+    background:var(--ink);
+    color:var(--lime);
+    padding:4px 10px;
+  }
+  .launch-title{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--ink);
+  }
+  .launch-body{
+    font-size:14.5px;
+    color:var(--ink);
+    margin:0;
+    max-width:640px;
+  }
+  .launch-body strong{background:var(--orange); color:var(--paper); padding:1px 6px;}
+
   .waiting{
     display:flex;
     gap:14px;
@@ -252,15 +282,23 @@
       <div class="lbl">Items complete</div>
     </div>
     <div class="stat">
-      <div class="num">4</div>
-      <div class="lbl">Contracted phases</div>
+      <div class="num">27 Sep</div>
+      <div class="lbl">Everything finalised by</div>
     </div>
   </div>
   <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
 
+  <div class="launch">
+    <div class="launch-head">
+      <span class="launch-tag">LAUNCH</span>
+      <span class="launch-title">October — full launch month</span>
+    </div>
+    <p class="launch-body">Agreed plan: a new Substack article every single day throughout October, paired with a Threads snippet the same day. That means design, templates, and enough content in the queue to run all 31 days have to be finished and tested by the <strong>last week of September</strong>, not trickling in during the month.</p>
+  </div>
+
   <div class="waiting">
     <span class="tag">waiting on</span>
-    <span class="items">Daniela — brand photos for the site, a launch date, and a decision on merging her old Substack. Dani (reviewer) — gut-reaction feedback on the showcase site, sent 6 Aug, not yet back.</span>
+    <span class="items">Daniela — brand photos for the site, a launch date confirmation, and a decision on merging her old Substack. Dani (reviewer) — gut-reaction feedback on the showcase site, sent 6 Aug, not yet back.</span>
   </div>
 
   <section class="phase open">
@@ -342,6 +380,27 @@
         <li class="open"><div class="mark"></div><span class="text">Full brand guidelines document<span class="note">Voice and positioning are documented — logo usage, spacing, and colour codes as a standalone reference are not</span></span></li>
         <li class="open"><div class="mark"></div><span class="text">Final asset pack (PNG / SVG / PDF)<span class="note">Assets exist in Canva and Substack but haven't been packaged</span></span></li>
         <li class="open"><div class="mark"></div><span class="text">Written confirmation of deliverables and IP transfer</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="phase-left">
+        <span class="phase-num">05</span>
+        <span class="phase-title">Launch Readiness — October<span class="chev">›</span></span>
+      </div>
+      <span class="phase-meta warm">0 / 6</span>
+    </div>
+    <p class="phase-window">Finalised by 27 Sep · daily SS + Threads, all of October</p>
+    <div class="phase-body">
+      <ul class="items">
+        <li class="open"><div class="mark"></div><span class="text">31 days of Substack posts drafted, edited, and scheduled<span class="note">Current queue is roughly 9 posts. Needs enough finished, polished content to cover every day of October before the month starts</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Daily Threads snippet paired to each post<span class="note">One short-form pull per article, ready to post the same day. Format not yet built or tested</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Threads account set up and tested<span class="note">Suggested twice in Telegram, Daniela hasn't confirmed she's used it yet</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Substack header image template finalised for daily use<span class="note">Canva template exists but needs to be fast enough to repeat 31 times without becoming a bottleneck</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Publishing calendar built and content slotted day by day</span></li>
+        <li class="open"><div class="mark"></div><span class="text">Substack config finished before go-live<span class="note">Noindex off, theme colour matched, sections visible, final logo live</span></span></li>
       </ul>
     </div>
   </section>

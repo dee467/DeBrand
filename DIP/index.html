@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIP01 — Project Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --paper:#FFFFFF;
+    --off:#F7F6F2;
+    --periwinkle:#AEBEE8;
+    --periwinkle-deep:#7387C4;
+    --orange:#E85D0E;
+    --terracotta:#C96A2E;
+    --lime:#C7D62E;
+    --lime-light:#E9EE7E;
+    --sage:#5C7A5C;
+    --stone:#7C7C6C;
+    --rule:#141414;
+    --rule-soft:#D9D8CE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:56px 28px 100px;}
+
+  .eyebrow{
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:1.5px;
+    color:var(--stone);
+    margin:0 0 18px;
+  }
+
+  h1{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-weight:700;
+    font-size:44px;
+    line-height:1.1;
+    letter-spacing:-0.5px;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  h1 .hl{
+    background:var(--lime);
+    padding:0 8px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .dek{
+    font-family:'Montserrat',sans-serif;
+    font-size:16.5px;
+    color:var(--stone);
+    max-width:480px;
+    margin:0 0 40px;
+  }
+
+  .stat-row{
+    display:flex;
+    gap:0;
+    border-top:2px solid var(--rule);
+    border-bottom:2px solid var(--rule);
+    margin-bottom:8px;
+  }
+  .stat{flex:1; padding:22px 24px;}
+  .stat + .stat{border-left:1px solid var(--rule-soft);}
+  .stat .num{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-weight:700;
+    font-size:40px;
+    color:var(--ink);
+    line-height:1;
+  }
+  .stat .num.accent{color:var(--periwinkle-deep);}
+  .stat .lbl{
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    color:var(--stone);
+    text-transform:uppercase;
+    margin-top:6px;
+  }
+  .bar-track{height:10px; background:var(--off); margin-bottom:36px;}
+  .bar-fill{height:100%; background:var(--orange);}
+
+  .waiting{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    padding:18px 22px;
+    background:var(--ink);
+    color:var(--paper);
+    margin-bottom:52px;
+  }
+  .waiting .tag{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:24px;
+    color:var(--lime);
+    white-space:nowrap;
+    line-height:1.2;
+  }
+  .waiting .items{font-size:14.5px; color:#E8E8E2; padding-top:4px;}
+
+  section.phase{border-bottom:1px solid var(--rule-soft); padding:26px 0;}
+  section.phase:first-of-type{border-top:2px solid var(--rule);}
+
+  .phase-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    gap:16px;
+  }
+  .phase-left{display:flex; align-items:baseline; gap:14px;}
+  .phase-num{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-size:15px;
+    color:var(--stone);
+  }
+  .phase-title{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-weight:700;
+    font-size:22px;
+    color:var(--ink);
+  }
+  .phase-window{font-size:13px; color:var(--stone); margin:2px 0 0 29px;}
+  .phase-meta{
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--paper);
+    background:var(--sage);
+    padding:5px 12px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .phase-meta.warm{background:var(--terracotta);}
+  .chev{
+    display:inline-block;
+    margin-left:6px;
+    transition:transform 0.15s ease;
+    color:var(--stone);
+    font-size:15px;
+  }
+  .phase.open .chev{transform:rotate(90deg);}
+  .phase-body{margin-top:20px; display:none; padding-left:29px;}
+  .phase.open .phase-body{display:block;}
+
+  ul.items{list-style:none; margin:0; padding:0;}
+  ul.items li{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+    padding:11px 0;
+    border-bottom:1px dashed var(--rule-soft);
+  }
+  ul.items li:last-child{border-bottom:none;}
+  .mark{
+    flex-shrink:0;
+    width:18px;
+    height:18px;
+    border:2px solid var(--ink);
+    margin-top:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:800;
+  }
+  li.done .mark{background:var(--lime); border-color:var(--ink); color:var(--ink);}
+  li.done .mark::after{content:"✓";}
+  li.open .mark{background:var(--paper);}
+  li.partial .mark{background:var(--periwinkle); border-color:var(--ink);}
+  li.partial .mark::after{content:"~"; color:var(--ink);}
+  li.done span.text{color:var(--stone); text-decoration:line-through; text-decoration-color:#C9C9BC;}
+  li.open span.text, li.partial span.text{color:var(--ink);}
+  .note{
+    display:block;
+    font-size:13px;
+    color:var(--stone);
+    margin-top:3px;
+    font-weight:400;
+  }
+
+  .beyond{margin-top:20px; padding:26px 26px 22px; background:var(--off);}
+  .beyond h3{
+    font-family:'Libre Baskerville',Georgia,serif;
+    font-weight:700;
+    font-size:19px;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .beyond p{margin:0 0 16px; font-size:14.5px; color:var(--stone); max-width:560px;}
+  .beyond .mark{background:var(--paper);}
+
+  .callout{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+    font-size:22px;
+    color:var(--periwinkle-deep);
+    margin:56px 0 6px;
+  }
+  footer{
+    margin-top:14px;
+    padding-top:18px;
+    border-top:2px solid var(--rule);
+    font-size:13px;
+    color:var(--stone);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .swatch-row{display:flex; gap:6px;}
+  .swatch{width:14px; height:14px;}
+
+  @media(max-width:600px){
+    .wrap{padding:36px 18px 72px;}
+    h1{font-size:32px;}
+    .stat-row{flex-direction:column;}
+    .stat + .stat{border-left:none; border-top:1px solid var(--rule-soft);}
+    .phase-window{margin-left:0;}
+    .phase-body{padding-left:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">BYDEESIGN — PROJECT DIP01</p>
+  <h1>Dead Ideas Project<br>DeBrand Progress</h1>
+  <p class="dek">Scope vs. delivery, as it actually stands.</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="num accent">78%</div>
+      <div class="lbl">Scope delivered</div>
+    </div>
+    <div class="stat">
+      <div class="num">18 / 23</div>
+      <div class="lbl">Items complete</div>
+    </div>
+    <div class="stat">
+      <div class="num">4</div>
+      <div class="lbl">Contracted phases</div>
+    </div>
+  </div>
+  <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+
+  <div class="waiting">
+    <span class="tag">waiting on</span>
+    <span class="items">Daniela — brand photos for the site, a launch date, and a decision on merging her old Substack. Dani (reviewer) — gut-reaction feedback on the showcase site, sent 6 Aug, not yet back.</span>
+  </div>
+
+  <section class="phase open">
+    <div class="phase-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="phase-left">
+        <span class="phase-num">01</span>
+        <span class="phase-title">Foundations<span class="chev">›</span></span>
+      </div>
+      <span class="phase-meta">6 / 6</span>
+    </div>
+    <p class="phase-window">May – Jun 2026 · complete</p>
+    <div class="phase-body">
+      <ul class="items">
+        <li class="done"><div class="mark"></div><span class="text">Kick-off strategy call held (3 Jun, "Let's Figure This Out Call")</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Concept and idea exploration session</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Target audience identification and profiling</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Business model exploration and mapping</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Written Strategic Foundations Document delivered</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Daniela's approval<span class="note">Given informally via Telegram, not a separate written sign-off</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="phase-left">
+        <span class="phase-num">02</span>
+        <span class="phase-title">Brand Strategy<span class="chev">›</span></span>
+      </div>
+      <span class="phase-meta">5 / 5</span>
+    </div>
+    <p class="phase-window">Jun – Jul 2026 · complete</p>
+    <div class="phase-body">
+      <ul class="items">
+        <li class="done"><div class="mark"></div><span class="text">Brand positioning statement</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Messaging framework</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Brand personality and values definition</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Tone of voice guidance</span></li>
+        <li class="done"><div class="mark"></div><span class="text">Written Brand Strategy Document delivered (30 Jun)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="phase-left">
+        <span class="phase-num">03</span>
+        <span class="phase-title">Brand Identity Development<span class="chev">›</span></span>
+      </div>
+      <span class="phase-meta">5 / 5</span>
+    </div>
+    <p class="phase-window">Jul – Aug 2026 · done in substance</p>
+    <div class="phase-body">
+      <ul class="items">
+        <li class="done"><div class="mark"></div><span class="text">Logo concept directions<span class="note">Three visual directions generated and shared for gut reaction, 29 Jun</span></span></li>
+        <li class="done"><div class="mark"></div><span class="text">Colour palette development<span class="note">Sage, dusty rose, ochre gold, stone grey, ink charcoal — confirmed</span></span></li>
+        <li class="done"><div class="mark"></div><span class="text">Typography system<span class="note">Anton (headings) and Alegreya (body) chosen for Substack</span></span></li>
+        <li class="done"><div class="mark"></div><span class="text">Visual mood direction<span class="note">"The Resting Place" — graveyard wit, warm not gothic</span></span></li>
+        <li class="done"><div class="mark"></div><span class="text">Client selects one direction<span class="note">Happened through Telegram feedback rather than a discrete formal step, but the choice is made and documented</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="phase">
+    <div class="phase-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="phase-left">
+        <span class="phase-num">04</span>
+        <span class="phase-title">Brand Identity Delivery<span class="chev">›</span></span>
+      </div>
+      <span class="phase-meta warm">2 / 7</span>
+    </div>
+    <p class="phase-window">Aug – Sep 2026 · in progress</p>
+    <div class="phase-body">
+      <ul class="items">
+        <li class="done"><div class="mark"></div><span class="text">Email capture / opt-in mechanism<span class="note">Adapted from the SOW's single landing page opt-in — Substack's own publish and subscribe function is fulfilling this role instead</span></span></li>
+        <li class="done"><div class="mark"></div><span class="text">Guidance connecting opt-in to an email platform<span class="note">Not needed — Substack handles subscriber email natively, no separate platform to wire up</span></span></li>
+        <li class="partial"><div class="mark"></div><span class="text">Landing page<span class="note">Still being built as its own separate piece from Substack. Adapted from the SOW's single Canva/Showit page into a fuller showcase site, live at soft-druid-bdda67.netlify.app. Not carrying the opt-in itself — that job sits with Substack. Waiting on Dani's feedback and a domain decision</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Finalised logo suite<span class="note">Primary mark and one small-space icon exist. No secondary lockup or full variant set yet</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Full brand guidelines document<span class="note">Voice and positioning are documented — logo usage, spacing, and colour codes as a standalone reference are not</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Final asset pack (PNG / SVG / PDF)<span class="note">Assets exist in Canva and Substack but haven't been packaged</span></span></li>
+        <li class="open"><div class="mark"></div><span class="text">Written confirmation of deliverables and IP transfer</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="callout">and here's what we did anyway</p>
+  <div class="beyond">
+    <h3>Additional work, beyond adapted scope</h3>
+    <p>The Phase 4 items above show where delivery shifted shape but still serves the original brief. What follows is genuinely additional: work that's grown the project past what SOW-DIP01 contracted for.</p>
+    <ul class="items">
+      <li class="partial"><div class="mark"></div><span class="text">Substack publication build-out<span class="note">Sections, styling, header images, templates — a full publishing platform, not just the opt-in mechanism. Open sub-items: theme colour check, noindex still on, final logo version live</span></span></li>
+      <li class="open"><div class="mark"></div><span class="text">Ongoing content coaching on drafted posts</span></li>
+      <li class="open"><div class="mark"></div><span class="text">Offer architecture — The Journal, The AI Companion, The Group Experience, divorce eulogy product</span></li>
+    </ul>
+  </div>
+
+  <footer>
+    <span>Last updated 3 September 2026</span>
+    <span class="swatch-row">
+      <span class="swatch" style="background:var(--periwinkle)"></span>
+      <span class="swatch" style="background:var(--orange)"></span>
+      <span class="swatch" style="background:var(--lime)"></span>
+      <span class="swatch" style="background:var(--sage)"></span>
+      <span class="swatch" style="background:var(--terracotta)"></span>
+    </span>
+  </footer>
+
+</div>
+<script>
+document.querySelectorAll('.phase').forEach(function(p){ p.classList.remove('open'); });
+document.querySelector('.phase').classList.add('open');
+</script>
+</body>
+</html>
